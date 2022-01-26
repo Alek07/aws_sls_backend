@@ -1,3 +1,9 @@
-import { handler } from "../services/node-lambda/hello";
+import { handler } from "../services/SpacesTables/create";
 
-handler({}, {});
+const event = {
+  body: {
+    location: "Venice",
+  },
+};
+
+handler(event as any, {} as any);
