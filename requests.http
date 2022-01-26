@@ -1,4 +1,13 @@
-@endpoint = https://geybhaejc3.execute-api.us-west-2.amazonaws.com/prod/
+@endpoint = https://cnnmihhs5a.execute-api.us-west-2.amazonaws.com/prod
 
 GET {{endpoint}}/hello/
+###
+
+POST {{endpoint}}/spaces/
+Content-Type: application/json
+
+{
+    "location": "Panama City",
+    "name": "Best Location"
+}
 ###
