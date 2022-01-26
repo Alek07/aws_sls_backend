@@ -8,7 +8,12 @@ import { GenericTable } from "./GenericTable";
 
 export class BackendStack extends Stack {
   private api = new RestApi(this, "SpaceFinderAPI");
-  private spacesTable = new GenericTable("SpacesTable", "spaceId", this);
+
+  private spacesTable = new GenericTable(this, {
+    tableName: "SpacesTable",
+    primaryKey: "spaceId",
+    createLambdaPath: "create",
+  });
 
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
@@ -27,5 +32,9 @@ export class BackendStack extends Stack {
     const helloLambdaIntegration = new LambdaIntegration(helloLambdaNodeJS);
     const helloLambdaResource = this.api.root.addResource("hello");
     helloLambdaResource.addMethod("GET", helloLambdaIntegration);
+
+    //Spaces API integrations:
+    const spaceResource = this.api.root.addResource("spaces");
+    spaceResource.addMethod("POST", this.spacesTable.createLambdaIntegration);
   }
 }
