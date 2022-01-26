@@ -5,7 +5,6 @@ export class GenericTable {
   private name: string;
   private primaryKey: string;
   private stack: Stack;
-  private table: Table;
 
   public constructor(name: string, primaryKey: string, stack: Stack) {
     this.name = name;
@@ -20,7 +19,7 @@ export class GenericTable {
   }
 
   private createTable() {
-    this.table = new Table(this.stack, this.name, {
+    new Table(this.stack, this.name, {
       partitionKey: {
         name: this.primaryKey,
         type: AttributeType.STRING,
