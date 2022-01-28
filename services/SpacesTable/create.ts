@@ -15,7 +15,7 @@ async function handler(
 ): Promise<APIGatewayProxyResult> {
   const result: APIGatewayProxyResult = {
     statusCode: 200,
-    body: "Hello from DYnamoDb",
+    body: "Hello from DynamoDb",
   };
 
   const item =
