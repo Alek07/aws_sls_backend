@@ -13,6 +13,7 @@ export class BackendStack extends Stack {
     tableName: "SpacesTable",
     primaryKey: "spaceId",
     createLambdaPath: "create",
+    readLambdaPath: "read",
   });
 
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -36,5 +37,6 @@ export class BackendStack extends Stack {
     //Spaces API integrations:
     const spaceResource = this.api.root.addResource("spaces");
     spaceResource.addMethod("POST", this.spacesTable.createLambdaIntegration);
+    spaceResource.addMethod("GET", this.spacesTable.readLambdaIntegration);
   }
 }
