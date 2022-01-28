@@ -3,6 +3,9 @@
 GET {{endpoint}}/hello/
 ###
 
+GET {{endpoint}}/spaces/
+###
+
 POST {{endpoint}}/spaces/
 Content-Type: application/json
 
