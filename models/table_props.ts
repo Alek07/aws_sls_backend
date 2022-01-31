@@ -5,4 +5,5 @@ export interface TableProps {
     readLambdaPath?: string,
     updateLambdaPath?: string,
     deleteLambdaPath?: string,
+    secondaryIndexes?: string[]
 }
