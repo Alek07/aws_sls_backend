@@ -28,6 +28,7 @@ export class GenericTable {
 
   private initialize() {
     this.createTable();
+    this.addSecondaryIndexes();
     this.createLambdas();
     this.grantTableRights();
   }
@@ -40,6 +41,20 @@ export class GenericTable {
       },
       tableName: this.props.tableName,
     });
+  }
+
+  private addSecondaryIndexes() {
+    if (this.props.secondaryIndexes) {
+      this.props.secondaryIndexes.forEach((secondaryIndex) => {
+        this.table.addGlobalSecondaryIndex({
+          indexName: secondaryIndex,
+          partitionKey: {
+            name: secondaryIndex,
+            type: AttributeType.STRING,
+          },
+        });
+      });
+    }
   }
 
   private createLambdas() {
