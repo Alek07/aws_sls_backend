@@ -9,10 +9,10 @@ import { v4 } from "uuid";
 const TABLE_NAME = process.env.TABLE_NAME;
 const dbClient = new DynamoDB.DocumentClient();
 
-async function handler(
+const handler = async (
   event: APIGatewayProxyEvent,
   context: Context
-): Promise<APIGatewayProxyResult> {
+): Promise<APIGatewayProxyResult> => {
   const result: APIGatewayProxyResult = {
     statusCode: 200,
     body: "Hello from DynamoDb",
@@ -38,6 +38,6 @@ async function handler(
   result.body = JSON.stringify(`Created item with id: ${item.spaceId}`);
 
   return result;
-}
+};
 
 export { handler };

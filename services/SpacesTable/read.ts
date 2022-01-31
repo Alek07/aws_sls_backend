@@ -9,10 +9,10 @@ const TABLE_NAME = process.env.TABLE_NAME;
 const PRIMARY_KEY = process.env.PRIMARY_KEY;
 const dbClient = new DynamoDB.DocumentClient();
 
-async function handler(
+const handler = async (
   event: APIGatewayProxyEvent,
   context: Context
-): Promise<APIGatewayProxyResult> {
+): Promise<APIGatewayProxyResult> => {
   const result: APIGatewayProxyResult = {
     statusCode: 200,
     body: "Hello from DynamoDb",
@@ -51,6 +51,6 @@ async function handler(
   }
 
   return result;
-}
+};
 
 export { handler };
