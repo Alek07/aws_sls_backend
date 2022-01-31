@@ -14,6 +14,7 @@ export class BackendStack extends Stack {
     primaryKey: "spaceId",
     createLambdaPath: "create",
     readLambdaPath: "read",
+    secondaryIndexes: ["location"],
   });
 
   constructor(scope: Construct, id: string, props?: StackProps) {
