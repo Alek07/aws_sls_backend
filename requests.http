@@ -3,7 +3,7 @@
 GET {{endpoint}}/hello/
 ###
 
-GET {{endpoint}}/spaces/
+GET {{endpoint}}/spaces?location=Venice
 ###
 
 POST {{endpoint}}/spaces/
