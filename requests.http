@@ -3,14 +3,15 @@
 GET {{endpoint}}/hello/
 ###
 
-GET {{endpoint}}/spaces?location=Venice
+GET {{endpoint}}/spaces
 ###
 
 POST {{endpoint}}/spaces/
 Content-Type: application/json
 
 {
-    "location": "Panama City",
-    "name": "Best Location"
+    "location": "Canada",
+    "name": "Toronto",
+    "score": 10
 }
 ###
