@@ -25,8 +25,23 @@ const handler = async (
 
   if (requestBody && spaceId)
     try {
-      const requestBodyKey = Object.keys(requestBody)[0];
-      const requestBodyValue = requestBody[requestBodyKey];
+      let updtExp = "set";
+      let ExpAttrKeys: any = {};
+      let ExpAttrValues: any = {};
+
+      const requestBodyKey = Object.keys(requestBody);
+      const requestBodyValue = Object.values(requestBody);
+
+      requestBodyKey.forEach((key, index) => {
+        updtExp += ` #key${index} = :val${index}${
+          index + 1 === requestBodyKey.length ? "" : ","
+        }`;
+        ExpAttrKeys[`#key${index}`] = key;
+      });
+
+      requestBodyValue.forEach((values, index) => {
+        ExpAttrValues[`:val${index}`] = values;
+      });
 
       const updateResults = await dbClient
         .update({
@@ -34,13 +49,9 @@ const handler = async (
           Key: {
             [PRIMARY_KEY]: spaceId,
           },
-          UpdateExpression: "set #zzzNew = :new",
-          ExpressionAttributeValues: {
-            ":new": requestBodyValue,
-          },
-          ExpressionAttributeNames: {
-            "#zzzNew": requestBodyKey,
-          },
+          UpdateExpression: updtExp,
+          ExpressionAttributeNames: ExpAttrKeys,
+          ExpressionAttributeValues: ExpAttrValues,
           ReturnValues: "UPDATED_NEW",
         })
         .promise();
