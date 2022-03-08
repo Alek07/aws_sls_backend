@@ -1,17 +1,30 @@
 @endpoint = https://cnnmihhs5a.execute-api.us-west-2.amazonaws.com/prod
 
-GET {{endpoint}}/hello/
+GET {{endpoint}}/spaces
 ###
 
-GET {{endpoint}}/spaces
+GET {{endpoint}}/spaces?spaceId=81005b06-8d62-4178-8aa0-2b243265281c
 ###
 
 POST {{endpoint}}/spaces/
 Content-Type: application/json
 
 {
-    "location": "Canada",
-    "name": "Toronto",
-    "score": 10
+    "location": "Colombia",
+    "name": "Medellin",
+    "score": 6
 }
+###
+
+
+PUT {{endpoint}}/spaces?spaceId=81005b06-8d62-4178-8aa0-2b243265281c
+Content-Type: application/json
+ 
+{
+    "location": "Colombia",
+    "name": "Cartagena"
+}
+###
+
+DELETE {{endpoint}}/spaces?spaceId=88871347-9134-49fb-97f7-d234d1133506
 ###
