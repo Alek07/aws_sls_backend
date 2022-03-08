@@ -5,6 +5,8 @@ import {
   Context,
 } from "aws-lambda";
 import { v4 } from "uuid";
+import { isValidSpaceInput } from "../../utils/type-guards";
+import { getEventBody } from "../../utils/functions";
 
 const TABLE_NAME = process.env.TABLE_NAME;
 const dbClient = new DynamoDB.DocumentClient();
@@ -18,24 +20,25 @@ const handler = async (
     body: "Hello from DynamoDb",
   };
 
-  const item =
-    typeof event.body === "object" ? event.body : JSON.parse(event.body);
-  item.spaceId = v4();
-
   try {
+    const item = getEventBody(event);
+    item.spaceId = v4();
+
+    isValidSpaceInput(item);
+
     await dbClient
       .put({
         TableName: TABLE_NAME!,
         Item: item,
       })
       .promise();
+
+    result.body = JSON.stringify(`Created item with id: ${item.spaceId}`);
   } catch (error) {
     if (error instanceof Error) {
       result.body = error.message;
     }
   }
-
-  result.body = JSON.stringify(`Created item with id: ${item.spaceId}`);
 
   return result;
 };

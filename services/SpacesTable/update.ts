@@ -4,7 +4,8 @@ import {
   APIGatewayProxyResult,
   Context,
 } from "aws-lambda";
-import { v4 } from "uuid";
+import { isValidSpace } from "../../utils/type-guards";
+import { getEventBody } from "../../utils/functions";
 
 const TABLE_NAME = process.env.TABLE_NAME as string;
 const PRIMARY_KEY = process.env.PRIMARY_KEY as string;
@@ -19,12 +20,13 @@ const handler = async (
     body: "Hello from DynamoDb",
   };
 
-  const requestBody =
-    typeof event.body === "object" ? event.body : JSON.parse(event.body);
+  const requestBody = getEventBody(event);
   const spaceId = event.queryStringParameters?.[PRIMARY_KEY];
 
   if (requestBody && spaceId)
     try {
+      isValidSpace(requestBody);
+
       let updtExp = "set";
       let ExpAttrKeys: any = {};
       let ExpAttrValues: any = {};
