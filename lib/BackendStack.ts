@@ -4,7 +4,7 @@ import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
 import { join } from "path";
-import { AuthorizerWrapper } from "./AuthorizerWrapper";
+import { AuthorizerWrapper } from "./auth/AuthorizerWrapper";
 import { GenericTable } from "./GenericTable";
 
 export class BackendStack extends Stack {
