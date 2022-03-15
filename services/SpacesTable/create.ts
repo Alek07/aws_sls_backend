@@ -6,7 +6,7 @@ import {
 } from "aws-lambda";
 import { v4 } from "uuid";
 import { isValidSpaceInput } from "../../utils/type-guards";
-import { getEventBody } from "../../utils/functions";
+import { addCorsHeader, getEventBody } from "../../utils/functions";
 
 const TABLE_NAME = process.env.TABLE_NAME;
 const dbClient = new DynamoDB.DocumentClient();
@@ -19,6 +19,8 @@ const handler = async (
     statusCode: 200,
     body: "Hello from DynamoDb",
   };
+
+  addCorsHeader(result);
 
   try {
     const item = getEventBody(event);
@@ -33,7 +35,7 @@ const handler = async (
       })
       .promise();
 
-    result.body = JSON.stringify(`Created item with id: ${item.spaceId}`);
+    result.body = JSON.stringify({ id: item.spaceId });
   } catch (error) {
     if (error instanceof Error) {
       result.body = error.message;

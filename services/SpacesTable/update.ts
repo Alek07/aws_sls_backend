@@ -5,7 +5,7 @@ import {
   Context,
 } from "aws-lambda";
 import { isValidSpace } from "../../utils/type-guards";
-import { getEventBody } from "../../utils/functions";
+import { addCorsHeader, getEventBody } from "../../utils/functions";
 
 const TABLE_NAME = process.env.TABLE_NAME as string;
 const PRIMARY_KEY = process.env.PRIMARY_KEY as string;
@@ -19,6 +19,8 @@ const handler = async (
     statusCode: 200,
     body: "Hello from DynamoDb",
   };
+
+  addCorsHeader(result);
 
   const requestBody = getEventBody(event);
   const spaceId = event.queryStringParameters?.[PRIMARY_KEY];
