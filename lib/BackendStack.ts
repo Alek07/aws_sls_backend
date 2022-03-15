@@ -32,13 +32,13 @@ export class BackendStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
+    this.initializeSuffix();
+    this.initializeSpacesPhotosBucket();
     this.authorizer = new AuthorizerWrapper(
       this,
       this.api,
       this.spacesPhotosBucket.bucketArn + "/*"
     );
-    this.initializeSuffix();
-    this.initializeSpacesPhotosBucket();
 
     const optionsWithAuthorizer: MethodOptions = {
       authorizationType: AuthorizationType.COGNITO,
